@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+    crossorigin="anonymous">
+    
+    {%load bootstrap5%}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load bootstrap_icons%}
+    {%block style%}
+    <style>
+        
+        .Product_list{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 10px;
+            padding: 10px;
+            margin: 20px;
+            text-align: center;
+        }
+        .item{
+            width: 300px;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            list-style-type: none;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #buy{
+            
+            width: 100px;
+            cursor: pointer;
+            background-color: rgb(255,102,0);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 3px;
+            height: 30px;
+        }
+        .i{
+            height: 280px;
+        }
+    </style>
+    {%endblock%}
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <h5 style="font-size: 20px; text-transform: capitalize; position: relative; top: 3px;">{{us}}</h5>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-dark" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              
+              <li class="nav-item">
+                <a class="nav-link active text-dark" aria-current="page" href="/home">Home</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="/cart">{% bs_icon 'cart-plus'%}Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="/login">{%bs_icon "person-circle"%}Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="/seller">{%bs_icon "shop-window"%}Become a Seller</a>
+              </li>
+              
+              
+            </ul>
+            <form action="/search" class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    {%block content%}
+    <div class="container">
+        <ul class="Product_list">
+            {%for i in qs%}
+            <li class="item">
+                <div class="i">
+                <a href="/view/{{i.id}}"><img src="{{ i.image.url}}" alt="{{i.name}}" width="130px"></a>
+                <p>{{i.name}}</p>
+                </div>
+                <input type="submit" value="BUY NOW" name="buy" id="buy"><br>
+                
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+    
+{%endblock%}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
