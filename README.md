@@ -1,2 +1,2 @@
 # Ecommerce
-Web project
+py manage.py runserver
