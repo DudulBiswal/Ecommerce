@@ -39,7 +39,8 @@ urlpatterns = [
 
     path('seller/',sellerindex),
     path('sellersignup/',sellerregister),
-    path('sellerlogin/',SellerLogin)
+    path('sellerlogin/',SellerLogin),
+    path('sellerhome/',SellerHome,name='sellerhome')
     
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

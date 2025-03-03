@@ -12,7 +12,10 @@ from django.contrib.auth.hashers import make_password
 
 def ProductView(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        if Group.objects.get(name="Seller") == "Seller":
+                return redirect("sellerhome")
+        else:
+                return redirect("home")
     qs = Product.objects.all()
     context = {'qs':qs}
     return render(request,"cart/product.html",context)
@@ -35,15 +38,18 @@ def add_to_cart(request,id):
     cart_item.quantity +=1
     cart_item.save()
     return redirect('cart')
+
 def delete(request,id):
     qs = Cart.objects.get(id=id)
     qs.delete()
     return redirect('cart')
+
 def inc(request,id):
     qs = Cart.objects.get(id=id)
     qs.quantity +=1
     qs.save()
     return redirect('cart')
+
 def dec(request,id):
     qs = Cart.objects.get(id=id)
     if qs.quantity >=1:
@@ -92,19 +98,25 @@ def Home(request):
     return render(request,"cart/home.html",context)
 
 def Search(request):
-    name = request.POST.get('name')
-    qs = Product.objects.filter(name__icontains=str(name)).values()
-
-    query = f"select * from cart_product where name like 'a%';"
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-    return render(request,'cart/search.html',context={'qs':list(results)})
+    
+    if request.method == "GET":
+         query = request.GET.get('name')
+         
+    
+    searchpath = Product.objects.filter(
+                name__icontains=query
+            )
+    
+    
+    return render(request,'cart/search.html',context={'qs':searchpath})
 
 @login_required
 def Logout(request):
     logout(request)
     return redirect('product')
+
+
+#Seller
 
 def Addproduct(request):
     form = Productform()
@@ -112,6 +124,9 @@ def Addproduct(request):
         form = Productform(request.POST)
         if form.is_valid:
             form.save()
+        else:
+            messages.success(request, "Product is not Validate")
+            return redirect('sellerhome')  
     return render(request,'cart/addpro.html',context={'form':form})
 def sellerindex(request):
     return render(request,"seller/seller.html")
@@ -122,12 +137,14 @@ def sellerregister(request):
         lname = request.POST.get('last_name')
         email = request.POST.get('email')
         pwd = request.POST.get('password')
-
-        user = User(username=Uname,first_name=fname,last_name=lname,email=email,password=pwd)
+        pd = make_password(pwd)
+        user = User(username=Uname,first_name=fname,last_name=lname,email=email,password=pd)
         user.save()
         group = Group.objects.get(name='Seller')
         user.groups.add(group)
     return render(request,"seller/sellerregister.html")
+
+
 def SellerLogin(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
@@ -136,8 +153,23 @@ def SellerLogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect('home')  
+            return redirect('sellerhome')  
         else:
             messages.error(request, "Invalid username or password")
 
     return render(request, "seller/login.html")
+
+@login_required(login_url='/sellerlogin')
+def SellerHome(request):    
+    if request.method == 'POST':
+        form = Productform(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product Added")
+            return redirect('sellerhome')
+        else:
+            messages.success(request, "Product is not Validate")
+            return redirect('sellerhome')  
+    form = Productform()
+    user = request.user
+    return render(request,'seller/home.html',context={'form':form,'user':user})

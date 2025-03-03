@@ -40,23 +40,15 @@
         </style>
 </head>
 <body>
-   <table>
-    {% for item in qs%}
-    <tr>
-        {% for i in item%}
-        <td>{{i}}</td>
-        {%endfor%}
-    </tr>
-    {%endfor%}
-   </table>
+   
    <div class="container">
     <ul class="Product_list">
         {%for i in qs%}
         <li class="item">
             
             <div class="i">
-            <a href="/view/{{i.0}}"><img src="{{ i.4.url}}" alt="{{i.1}}" width="130px"></a>
-            <p>{{i.1}}</p>
+            <a href="/view/{{i.id}}"><img src="{{ i.image.url}}" alt="{{i.name}}" width="130px"></a>
+            <p>{{i.name}}</p>
             </div>
             <input type="submit" value="BUY NOW" name="buy" id="buy"><br>
             

@@ -8,8 +8,8 @@ class Categories(models.Model):
     def __str__(self):
         return self.category
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True)
+    name = models.CharField(max_length=300)
+    description = models.TextField(max_length=1000,null=True)
     category= models.ForeignKey(Categories,on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10,decimal_places=2)
     image = models.ImageField(upload_to='products/')
