@@ -67,11 +67,20 @@ Stripe / PayPal SDKs (if payment integration is included)
 
 📸 Screenshots
 (Add screenshots of homepage, product page, cart, admin panel here)
+Homepage
+![Screenshot 2025-04-04 093208](https://github.com/user-attachments/assets/b13baf3f-679c-4f12-8318-2766fc6c0933)
+
+Product Page
+![Screenshot 2025-04-04 093229](https://github.com/user-attachments/assets/5f641076-e17a-4f16-bfc9-d17934ecc9e5)
+
+Cart
+![Screenshot 2025-04-04 093317](https://github.com/user-attachments/assets/b5d48111-b349-4d59-96c3-e8c156241998)
+
+
 
 👨‍💻 Contributors
-Your Name
+Omkar Biswal
 
-Contributor 2
 
 📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
