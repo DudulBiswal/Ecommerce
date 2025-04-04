@@ -13,8 +13,7 @@ An eCommerce web application built with Django, offering a modern online shoppin
 - Responsive UI (Bootstrap/Tailwind)
 
 ## 📁 Project Structure
-<img src="C:\Users\omkar\OneDrive\Pictures\Screenshots\struc" alt="">
-
+![struc](https://github.com/user-attachments/assets/e82ccaf3-7a49-4e41-b7f2-d2a43f7bb7b4)
 
 ## 🛠️ Installation
 
